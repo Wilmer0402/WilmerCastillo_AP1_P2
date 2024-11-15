@@ -21,7 +21,7 @@ namespace WilmerCastillo_AP1_P2.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("WilmerCastillo_AP1_P2.Models.Registro", b =>
+            modelBuilder.Entity("WilmerCastillo_AP1_P2.Models.Registros", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -31,7 +31,7 @@ namespace WilmerCastillo_AP1_P2.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Registro");
+                    b.ToTable("Registros");
                 });
 #pragma warning restore 612, 618
         }

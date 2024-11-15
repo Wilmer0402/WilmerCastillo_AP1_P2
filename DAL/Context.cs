@@ -7,7 +7,7 @@ namespace WilmerCastillo_AP1_P2.DAL
     {
         public Context(DbContextOptions<Context> options) : base(options) { }
 
-        public DbSet<Registro> Registro { get; set; }
+        public DbSet<Registros> Registros { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

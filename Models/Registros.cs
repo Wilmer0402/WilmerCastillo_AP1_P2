@@ -2,7 +2,7 @@
 
 namespace WilmerCastillo_AP1_P2.Models
 {
-    public class Registro
+    public class Registros
     {
         [Key]
 

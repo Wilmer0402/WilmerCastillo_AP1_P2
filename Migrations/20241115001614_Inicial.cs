@@ -11,7 +11,7 @@ namespace WilmerCastillo_AP1_P2.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Registro",
+                name: "Registros",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -19,7 +19,7 @@ namespace WilmerCastillo_AP1_P2.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Registro", x => x.Id);
+                    table.PrimaryKey("PK_Registros", x => x.Id);
                 });
         }
 
@@ -27,7 +27,7 @@ namespace WilmerCastillo_AP1_P2.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Registro");
+                name: "Registros");
         }
     }
 }

@@ -1,7 +1,8 @@
 ﻿@page "/Index"
 @using WilmerCastillo_AP1_P2.Models
 @using WilmerCastillo_AP1_P2.Services
-@inject RegistroServices registroServices
+
+@*@inject RegistroServices registroServices  *@
 @inject NavigationManager navigationManager
 @rendermode InteractiveServer
 
@@ -50,6 +51,6 @@
 </div>
 
 @code {
-    public List<Registro> Registro { get; set; } = new List<Registro>();
+    public List<Registros> Registro { get; set; } = new List<Registros>();
 
 }

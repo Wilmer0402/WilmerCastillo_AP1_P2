@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WilmerCastillo_AP1_P2.Components;
 using WilmerCastillo_AP1_P2.DAL;
+using WilmerCastillo_AP1_P2.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,9 @@ builder.Services.AddRazorComponents()
 
 //Inyeccion del contexto
 var ConStr = builder.Configuration.GetConnectionString("SqlConStr");
-builder.Services.AddDbContext<Context>(w => w.UseSqlServer("Name=SqlConStr"));
+builder.Services.AddDbContextFactory<Context>(w => w.UseSqlServer("Name=SqlConStr"));
+
+builder.Services.AddScoped<RegistroServices>();
 
 var app = builder.Build();
 
