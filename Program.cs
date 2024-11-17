@@ -1,3 +1,4 @@
+using BlazorBootstrap;
 using Microsoft.EntityFrameworkCore;
 using WilmerCastillo_AP1_P2.Components;
 using WilmerCastillo_AP1_P2.DAL;
@@ -13,6 +14,7 @@ builder.Services.AddRazorComponents()
 var ConStr = builder.Configuration.GetConnectionString("SqlConStr");
 builder.Services.AddDbContextFactory<Context>(w => w.UseSqlServer("Name=SqlConStr"));
 
+builder.Services.AddSingleton<ToastService>();
 builder.Services.AddScoped<RegistroServices>();
 
 var app = builder.Build();
