@@ -1,0 +1,80 @@
+﻿@using WilmerCastillo_AP1_P2.Models
+@inject ToastService Toast
+
+﻿﻿<div class="col-auto input-group align-items-center">
+    <InputSelect class="form-select" @bind-Value="ProductosId">
+        <option disabled value="0">--- Seleccione un Producto ---</option>
+        @foreach (var producto  in Productos)
+        {
+            <option value="@producto.ProductosId">@producto.ProductosId -- @producto.Descripcion -- (@producto.Existencia )</option>
+        }
+    </InputSelect>
+
+    <label class="col-form-label input-group-text">Cantidad</label>
+    <InputNumber class="form-control" @bind-Value="Cantidad" placeholder="0"></InputNumber>
+
+    <label class="col-form-label input-group-text">Precio</label>
+    <InputNumber class="form-control" @bind-Value="Precio" placeholder="0.00$" readonly></InputNumber>
+    <button type="button" class="btn btn-success bi bi-floppy" @onclick="ElegirArticulo">Agregar detalle</button>
+</div>
+
+@if (!string.IsNullOrEmpty(MensajeError))
+{
+    <div class="alert alert-danger">@MensajeError</div>
+}
+
+@code {
+    [Parameter]
+    public List<Product> Productos { get; set; } = new List<Product>();
+
+    [Parameter]
+    public int Cantidad { get; set; }
+
+    [Parameter]
+    public double Precio { get; set; }
+
+    [Parameter]
+    public double Costo { get; set; }
+
+    [Parameter]
+    public int ProductosId { get; set; }
+
+    [Parameter]
+    public EventCallback<(Product productos, int Cantidad)> productoSeleccionado { get; set; }
+
+    public string? MensajeError { get; set; }
+
+    private async Task ElegirArticulo()
+    {
+        MensajeError = null;
+
+        if (ProductosId > 0 && Cantidad > 0)
+        {
+            var ArticuloElegido = Productos.SingleOrDefault(p => p.ProductosId == ProductosId);
+
+            if (ArticuloElegido != null)
+            {
+                if (ArticuloElegido.Existencia < Cantidad)
+                {
+                    Toast.Notify(new(ToastType.Danger, "La cantidad que solicita es mayor a la existente"));
+                   
+                }
+                else
+                {
+                    
+                    await productoSeleccionado.InvokeAsync((ArticuloElegido, Cantidad));
+                }
+            }
+            else
+            {
+                Toast.Notify(new(ToastType.Danger, "Producto no Encontrado"));
+                
+            }
+        }
+        else
+        {
+            Toast.Notify(new(ToastType.Danger, "Debe seleccionar un Producto y una cantidad válida"));
+           
+        }
+    }
+}

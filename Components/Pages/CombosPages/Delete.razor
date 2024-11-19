@@ -1,0 +1,92 @@
+﻿@page "/Combos/Delete/{CombosId:int}"
+@rendermode InteractiveServer
+@inject CombosServices combosServices
+@inject NavigationManager navigation
+@inject ToastService Toast
+
+<PageTitle>Eliminar Combo</PageTitle>
+<Toasts class="p-3" AutoHide="true" Delay="4000" Placement="ToastsPlacement.TopRight" />
+
+<div class="container">
+    <div class="card shadow-lg">
+        <div class="card-header text-center">
+            <h5><strong>Eliminar Combo:</strong></h5>
+        </div>
+
+        <div class="card-body">
+            <h5><strong>¿Seguro que Desea eliminar el combo?</strong></h5>
+
+            <table class="mt-4 table">
+                <tbody>
+                    <tr>
+                        <th scope="row">Combo Id:</th>
+                        <td>@combo.CombosId</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Fecha:</th>
+                        <td>@combo.Fecha.ToString("dd/MM/yyyy")</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Descripci&oacute;n:</th>
+                        <td>@combo.Descripcion</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Vendido:</th>
+                        <td>@combo.Vendido</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Precio:</th>
+                        <td>@combo.Precio.ToString("C2")</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="border border-success p-2 mt-2">
+                <h5><strong>Productos Utilizados:</strong></h5>
+                @foreach (var detalle in combo.CombosDetalle)
+                {
+                    <ul>
+                        <li>Productos Id: @detalle.ProductosId</li>
+                        <li>Nombre del Producto: @detalle.Productos?.Descripcion</li>
+                        <li>Cantidad del Producto: @detalle.Cantidad</li>
+                        <li>Total en Producto: @detalle.Costo.ToString("C2")</li>
+                    </ul>
+                }
+            </div>
+        </div>
+
+        <div class="card-footer">
+            <a href="/Combos/Index" class="btn btn-secondary text-white bi bi-arrow-left"> Volver</a>
+            <button type="button" class="btn btn-danger bi bi-trash" @onclick="Eliminar"> Eliminar</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int CombosId { get; set; }
+    public Combo1 combo { get; set; } = new Combo1();
+
+    
+    protected override async Task OnInitializedAsync()
+    {
+        combo = await combosServices.BuscarConDetalles(CombosId);
+    }
+
+    
+    private async Task Eliminar()
+    {
+        var eliminado = await combosServices.Eliminar(CombosId);
+
+        if (eliminado)
+        {
+            Toast.Notify(new ToastMessage(ToastType.Success, "Se ha Eliminado el Combo"));
+            await Task.Delay(4000);
+            navigation.NavigateTo("/Combos/Index");
+        }
+        else
+        {
+            Toast.Notify(new ToastMessage(ToastType.Danger, "No se ha Eliminado el Combo"));
+        }
+    }
+}
