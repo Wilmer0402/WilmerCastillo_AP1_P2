@@ -48,7 +48,7 @@
 
             <div class="row mb-3">
                 <div class="col text-end">
-                    <a href="/Cotizaciones/Create" class="btn btn-success bi bi-plus-square mt-3"> Crear</a>
+                    <a href="/Combos/Create" class="btn btn-success bi bi-plus-square mt-3"> Crear</a>
                 </div>
             </div>
 
@@ -58,7 +58,8 @@
                         <th>Combo Id</th>
                         <th>Fecha</th>
                         <th>Descripcion</th>
-                        <th>Monto</th>
+                        <th>Vendido</th>
+                        <th>Precio</th>
                         <th>Modificar</th>
                         <th>Eliminar</th>
                     </tr>
@@ -70,6 +71,7 @@
                             <td>@combos.CombosId</td>
                             <td>@combos.Fecha.ToString("dd/MM/yyyy")</td>
                             <td>@combos.Descripcion</td>
+                            <td>@combos.Vendido</td>
                             <td>@combos.Precio.ToString("N2")</td>
                             <td>
                                 <a href="/Combos/Edit/@combos.CombosId" class="btn btn-outline-dark bi bi-pencil-square"></a>

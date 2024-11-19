@@ -8,7 +8,6 @@ namespace WilmerCastillo_AP1_P2.DAL
         public Context(DbContextOptions<Context> options) : base(options) { }
 
         public DbSet<Combos> Combos { get; set; }
-
         public DbSet<CombosDetalle> CombosDetalle { get; set; }
         public DbSet<Productos> Productos { get; set; } 
 
