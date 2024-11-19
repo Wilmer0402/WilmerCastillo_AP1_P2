@@ -4,20 +4,20 @@ using WilmerCastillo_AP1_P2.Models;
 
 namespace WilmerCastillo_AP1_P2.Models
 {
-    public class CombosDetalle
+    public class ComboDetalles
     {
         [Key]
         public int DetalleId { get; set; }
 
         [ForeignKey("CombosId")]
         public int CombosId { get; set; }
-        public Combos? Combos { get; set; }
+        public Combo1? Combos { get; set; }
 
         [InverseProperty("CombosDetalle")]
         
         [ForeignKey("ProductoId")]
         public int ProductosId { get; set; }
-        public Productos? Productos { get; set; }
+        public Product? Productos { get; set; }
 
         [Required(ErrorMessage = "Campo obligatorio")]
         [Range(1, int.MaxValue, ErrorMessage = "La Cantidad debe ser mayor que 0")]

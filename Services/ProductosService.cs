@@ -15,17 +15,17 @@ namespace WilmerCastillo_AP1_P2.Services
             _context = context;
         }
 
-        public async Task<List<Productos>> Listar(Expression<Func<Productos, bool>> criterio)
+        public async Task<List<Product>> Listar(Expression<Func<Product, bool>> criterio)
         {
-            return await _context.Productos
+            return await _context.Product
                 .AsNoTracking()
                 .Where(criterio)
                 .ToListAsync();
         }
 
-        public async Task<Productos> Buscar(int id)
+        public async Task<Product> Buscar(int id)
         {
-            return await _context.Productos.AsNoTracking().
+            return await _context.Product.AsNoTracking().
                    FirstOrDefaultAsync(w => w.ProductosId == id);
         }
     }

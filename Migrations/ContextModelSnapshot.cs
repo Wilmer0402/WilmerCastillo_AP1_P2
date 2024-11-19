@@ -22,7 +22,7 @@ namespace WilmerCastillo_AP1_P2.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("WilmerCastillo_AP1_P2.Models.Combos", b =>
+            modelBuilder.Entity("WilmerCastillo_AP1_P2.Models.Combo1", b =>
                 {
                     b.Property<int>("CombosId")
                         .ValueGeneratedOnAdd()
@@ -40,16 +40,15 @@ namespace WilmerCastillo_AP1_P2.Migrations
                     b.Property<double>("Precio")
                         .HasColumnType("float");
 
-                    b.Property<string>("Vendido")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Vendido")
+                        .HasColumnType("bit");
 
                     b.HasKey("CombosId");
 
-                    b.ToTable("Combos");
+                    b.ToTable("Combo1");
                 });
 
-            modelBuilder.Entity("WilmerCastillo_AP1_P2.Models.CombosDetalle", b =>
+            modelBuilder.Entity("WilmerCastillo_AP1_P2.Models.ComboDetalles", b =>
                 {
                     b.Property<int>("DetalleId")
                         .ValueGeneratedOnAdd()
@@ -75,10 +74,10 @@ namespace WilmerCastillo_AP1_P2.Migrations
 
                     b.HasIndex("ProductosId");
 
-                    b.ToTable("CombosDetalle");
+                    b.ToTable("ComboDetalles");
                 });
 
-            modelBuilder.Entity("WilmerCastillo_AP1_P2.Models.Productos", b =>
+            modelBuilder.Entity("WilmerCastillo_AP1_P2.Models.Product", b =>
                 {
                     b.Property<int>("ProductosId")
                         .ValueGeneratedOnAdd()
@@ -93,64 +92,60 @@ namespace WilmerCastillo_AP1_P2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DiscoDuro")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Existencia")
                         .HasColumnType("int");
-
-                    b.Property<string>("MemoriaGrafica")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MemoriaRam")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Precio")
                         .HasColumnType("float");
 
-                    b.Property<string>("Procesador")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("ProductosId");
 
-                    b.ToTable("Productos");
+                    b.ToTable("Product");
 
                     b.HasData(
                         new
                         {
                             ProductosId = 1,
-                            Costo = 2500.0,
-                            Descripcion = "Combo1",
-                            DiscoDuro = "DHCD",
-                            Existencia = 10,
-                            MemoriaGrafica = "4GB",
-                            MemoriaRam = "16Gb",
-                            Precio = 3000.0,
-                            Procesador = "Ryzen"
+                            Costo = 1000.0,
+                            Descripcion = "Disco Duro",
+                            Existencia = 20,
+                            Precio = 1500.0
                         },
                         new
                         {
                             ProductosId = 2,
-                            Costo = 4500.0,
-                            Descripcion = "Combo2",
-                            DiscoDuro = "DHCD",
-                            Existencia = 5,
-                            MemoriaGrafica = "8GB",
-                            MemoriaRam = "32Gb",
-                            Precio = 6000.0,
-                            Procesador = "Ryzen7"
+                            Costo = 800.0,
+                            Descripcion = "Memoria Ram",
+                            Existencia = 30,
+                            Precio = 2200.0
+                        },
+                        new
+                        {
+                            ProductosId = 3,
+                            Costo = 3000.0,
+                            Descripcion = "Procesador",
+                            Existencia = 50,
+                            Precio = 3810.0
+                        },
+                        new
+                        {
+                            ProductosId = 4,
+                            Costo = 1310.0,
+                            Descripcion = "Memoria Grafica",
+                            Existencia = 40,
+                            Precio = 2530.0
                         });
                 });
 
-            modelBuilder.Entity("WilmerCastillo_AP1_P2.Models.CombosDetalle", b =>
+            modelBuilder.Entity("WilmerCastillo_AP1_P2.Models.ComboDetalles", b =>
                 {
-                    b.HasOne("WilmerCastillo_AP1_P2.Models.Combos", "Combos")
+                    b.HasOne("WilmerCastillo_AP1_P2.Models.Combo1", "Combos")
                         .WithMany("CombosDetalle")
                         .HasForeignKey("CombosId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WilmerCastillo_AP1_P2.Models.Productos", "Productos")
+                    b.HasOne("WilmerCastillo_AP1_P2.Models.Product", "Productos")
                         .WithMany()
                         .HasForeignKey("ProductosId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -161,7 +156,7 @@ namespace WilmerCastillo_AP1_P2.Migrations
                     b.Navigation("Productos");
                 });
 
-            modelBuilder.Entity("WilmerCastillo_AP1_P2.Models.Combos", b =>
+            modelBuilder.Entity("WilmerCastillo_AP1_P2.Models.Combo1", b =>
                 {
                     b.Navigation("CombosDetalle");
                 });

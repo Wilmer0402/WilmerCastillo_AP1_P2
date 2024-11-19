@@ -7,18 +7,20 @@ namespace WilmerCastillo_AP1_P2.DAL
     {
         public Context(DbContextOptions<Context> options) : base(options) { }
 
-        public DbSet<Combos> Combos { get; set; }
-        public DbSet<CombosDetalle> CombosDetalle { get; set; }
-        public DbSet<Productos> Productos { get; set; } 
+        public DbSet<Combo1> Combo1 { get; set; }
+        public DbSet<ComboDetalles> ComboDetalles { get; set; }
+        public DbSet<Product> Product { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Productos>().HasData(new List<Productos>
+            modelBuilder.Entity<Product>().HasData(new List<Product>
             {
-                new Productos {ProductosId = 1, Descripcion = "Combo1", DiscoDuro = "DHCD", MemoriaRam = "16Gb", MemoriaGrafica = "4GB", Procesador = "Ryzen",Costo = 2500, Precio =3000, Existencia = 10 },
-                new Productos { ProductosId = 2, Descripcion = "Combo2", DiscoDuro = "DHCD", MemoriaRam = "32Gb", MemoriaGrafica = "8GB", Procesador = "Ryzen7",Costo =4500, Precio =6000, Existencia = 5 },
+            new Product(){ProductosId = 1, Descripcion = "Disco Duro", Costo = 1000, Precio = 1500, Existencia = 20},
+            new Product(){ProductosId = 2, Descripcion = "Memoria Ram", Costo = 800, Precio = 2200, Existencia = 30},
+            new Product(){ProductosId = 3, Descripcion = "Procesador", Costo = 3000, Precio = 3810, Existencia = 50},
+            new Product(){ProductosId = 4, Descripcion = "Memoria Grafica", Costo = 1310, Precio = 2530, Existencia = 40}
             });
 
         }

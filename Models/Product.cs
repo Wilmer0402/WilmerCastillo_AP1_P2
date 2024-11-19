@@ -2,7 +2,7 @@
 
 namespace WilmerCastillo_AP1_P2.Models
 {
-    public class Productos
+    public class Product
     {
                [Key]
 
@@ -25,15 +25,6 @@ namespace WilmerCastillo_AP1_P2.Models
             [RegularExpression(@"^\d+(\.\d+)?$", ErrorMessage = "Solo se Permiten Numeros")]
 
             public int Existencia { get; set; }
-
-            public string? DiscoDuro { get; set; }   
-
-            public string? MemoriaRam { get; set; }  
-
-            public string?  Procesador { get; set; }
-
-           public string?  MemoriaGrafica { get; set; }  
-
 
         
     }

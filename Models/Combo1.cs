@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WilmerCastillo_AP1_P2.Models
 {
-    public class Combos
+    public class Combo1
     {
         [Key]
 
@@ -22,12 +22,10 @@ namespace WilmerCastillo_AP1_P2.Models
         [RegularExpression(@"^\d+$", ErrorMessage = "Solo se permiten Numeros")]
         public double Precio { get; set; }
 
-        [Required(ErrorMessage = "Favor Ingrese si el Combo esta Vendido ")]
-        [RegularExpression(@"[a-zA-Z\s]+s", ErrorMessage = "Solo se permiten Letras")]
+         
+        public bool Vendido { get; set; }
 
-        public string? Vendido { get; set; }
-
-        public ICollection<CombosDetalle> CombosDetalle { get; set; } = new List<CombosDetalle>();
+        public ICollection<ComboDetalles> CombosDetalle { get; set; } = new List<ComboDetalles>();
 
 
     }

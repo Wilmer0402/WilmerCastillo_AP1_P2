@@ -11,23 +11,23 @@ namespace WilmerCastillo_AP1_P2.Services;
     public async Task<bool> Existe(int id)
     {
         await using var contexto = await DbFactory.CreateDbContextAsync();
-        return await contexto.Combos.AnyAsync(a => a.CombosId == id);
+        return await contexto.Combo1.AnyAsync(a => a.CombosId == id);
     }
 
-    private async Task<bool> Insertar(Combos combos)
+    private async Task<bool> Insertar(Combo1 combos)
     {
         await using var contexto = await DbFactory.CreateDbContextAsync();
         await AfectarArticulo(combos.CombosDetalle.ToArray(), true);
-        contexto.Combos.Add(combos);
+        contexto.Combo1.Add(combos);
         return await contexto.SaveChangesAsync() > 0;
     }
 
-    private async Task AfectarArticulo(CombosDetalle[] detalle, bool resta = true)
+    private async Task AfectarArticulo(ComboDetalles[] detalle, bool resta = true)
     {
         await using var contexto = await DbFactory.CreateDbContextAsync();
         foreach (var item in detalle)
         {
-            var Articulo = await contexto.Productos.SingleAsync(p => p.ProductosId == item.ProductosId);
+            var Articulo = await contexto.Product.SingleAsync(p => p.ProductosId == item.ProductosId);
             if (resta)
                 Articulo.Existencia -= item.Cantidad;
             else
@@ -37,11 +37,11 @@ namespace WilmerCastillo_AP1_P2.Services;
         await contexto.SaveChangesAsync();
     }
 
-    private async Task<bool> Modificar(Combos combos)
+    private async Task<bool> Modificar(Combo1 combos)
     {
         await using var contexto = await DbFactory.CreateDbContextAsync();
 
-        var comboOriginal = await contexto.Combos
+        var comboOriginal = await contexto.Combo1
             .Include(t => t.CombosDetalle)
             .FirstOrDefaultAsync(t => t.CombosId == combos.CombosId);
 
@@ -54,7 +54,7 @@ namespace WilmerCastillo_AP1_P2.Services;
         {
             if (!combos.CombosDetalle.Any(d => d.DetalleId == detalleOriginal.DetalleId))
             {
-                contexto.CombosDetalle.Remove(detalleOriginal);
+                contexto.ComboDetalles.Remove(detalleOriginal);
             }
         }
 
@@ -82,7 +82,7 @@ namespace WilmerCastillo_AP1_P2.Services;
 
 
 
-    public async Task<bool> Guardar(Combos combos)
+    public async Task<bool> Guardar(Combo1 combos)
     {
         if (!await Existe(combos.CombosId))
             return await Insertar(combos);
@@ -93,7 +93,7 @@ namespace WilmerCastillo_AP1_P2.Services;
     public async Task<bool> Eliminar(int id)
     {
         await using var context = await DbFactory.CreateDbContextAsync();
-        var cotizacion = await context.Combos
+        var cotizacion = await context.Combo1
             .Include(t => t.CombosDetalle)
             .ThenInclude(td => td.Productos)
             .FirstOrDefaultAsync(t => t.CombosId == id);
@@ -103,36 +103,36 @@ namespace WilmerCastillo_AP1_P2.Services;
 
         await AfectarArticulo(cotizacion.CombosDetalle.ToArray(), resta: false);
 
-        context.CombosDetalle.RemoveRange(cotizacion.CombosDetalle);
-        context.Combos.Remove(cotizacion);
+        context.ComboDetalles.RemoveRange(cotizacion.CombosDetalle);
+        context.Combo1.Remove(cotizacion);
 
         var cantidad = await context.SaveChangesAsync();
         return cantidad > 0;
     }
 
-    public async Task<Combos> Buscar(int id)
+    public async Task<Combo1> Buscar(int id)
     {
         await using var contexto = await DbFactory.CreateDbContextAsync();
-        return await contexto.Combos
+        return await contexto.Combo1
             .Include(t => t.CombosDetalle)
             .AsNoTracking()
             .FirstOrDefaultAsync(p => p.CombosId == id);
     }
 
-    public async Task<Combos> BuscarConDetalles(int id)
+    public async Task<Combo1> BuscarConDetalles(int id)
     {
         await using var contexto = await DbFactory.CreateDbContextAsync();
-        return await contexto.Combos
+        return await contexto.Combo1
             
             .Include(t => t.CombosDetalle)
             .ThenInclude(td => td.Productos)
             .FirstOrDefaultAsync(p => p.CombosId == id);
     }
 
-    public async Task<List<Combos>> Listar(Expression<Func<Combos, bool>> criterio)
+    public async Task<List<Combo1>> Listar(Expression<Func<Combo1, bool>> criterio)
     {
         await using var contexto = await DbFactory.CreateDbContextAsync();
-        var combo = await contexto.Combos
+        var combo = await contexto.Combo1
             .Include(t => t.CombosDetalle)
             .ThenInclude(td => td.Productos)
             .AsNoTracking()
