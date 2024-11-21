@@ -13,12 +13,12 @@ namespace WilmerCastillo_AP1_P2.Models
 
         public DateTime Fecha { get; set; } = DateTime.Now;
 
-        [Required(ErrorMessage = "Favor Ingrese la Observacion de la Cotización")]
+        [Required(ErrorMessage = "Favor Ingrese la Descripcion")]
         [RegularExpression(@"[a-zA-Z\s]+$", ErrorMessage = "Solo se permiten Letras")]
 
         public string? Descripcion { get; set; }
 
-        [Required(ErrorMessage = "Favor Ingrese el Precio del Trabajo")]
+        [Required(ErrorMessage = "Favor Ingrese el Precio del Combo")]
         [RegularExpression(@"^\d+$", ErrorMessage = "Solo se permiten Numeros")]
         public double Precio { get; set; }
 
